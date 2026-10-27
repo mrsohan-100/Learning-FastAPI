@@ -1,0 +1,60 @@
+1. Folder - Core
+- Centralize app-wide configuration
+- Easier environment switching
+- App settings & env variables
+- Database connection logic
+- Security utilities
+- Import config anywhere
+
+2. Folder - Api
+- Keep routes clean & readable
+- Control API structure
+
+3. Folder - Models
+-  Represent DB tables as Python
+-  Enforce relationships
+-  Maintain schema consistency
+-  Enable ORM features
+-  SQLAlchemy models
+-  Table definitions
+-  Relationships
+
+4. Folder - schemas
+- Validate incoming data
+- Control API output
+- Improve frontend safety
+- Enforce strict typing
+- Pydantic models
+- Request payload schemas
+- Response schemas
+
+5. Folder - services
+- Single source of truth
+- Reuse logic everywhere
+- Business rules
+- Database queries
+
+6. Folder - utils
+- Avoid repeated code
+- Shared functionality
+- Small pure functions
+- Lightweight functions
+
+
+Package manage
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+
+
+pip install SQLAlchemy
+- Database ORM for Web Apps
+- API Backend Development
+- Data Migration
+- Complex Query Handling
+- Multi-Database Support
+- Sqlite,MySQL,MSSQL,PsgSQL
+
+
+
+
