@@ -1,16 +1,49 @@
-from fastapi import FastAPI, Request, Cookie
+from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from core.database import create_tables
+from fastapi.middleware.cors import CORSMiddleware
+from api.v1.api import router as api_router
+import uvicorn
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("Starting up application...")
+    create_tables()
+    print("Database tables created successfully!")
+    yield
+    print("Shutting down application...")
 
 
-@app.post("/header")
-async def path_paramerter(
-    request: Request,
-    Cookie_1: str = Cookie(),
-    Cookie_2: str = Cookie(),
-):
-    cookie = dict(request.cookies)
-    return {
-        "message": "success",
-        "data": {"cookie1": Cookie_1, "cookie2": Cookie_2, "cookie": cookie},
-    }
+app = FastAPI(
+    title="Simple API",
+    version="1.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    lifespan=lifespan,
+)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins="*",
+    allow_credentials=True,
+    allow_methods="*",
+    allow_headers="*",
+)
+
+app.include_router(api_router, prefix="/api/v1")
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello API"}
+
+
+@app.get("/health")
+async def helath():
+    return {"message": "Healthy"}
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
