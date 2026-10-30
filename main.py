@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from core.database import create_tables
+
+# from core.database import create_tables
 from fastapi.middleware.cors import CORSMiddleware
 from api.v1.api import router as api_router
 import uvicorn
@@ -9,7 +10,7 @@ import uvicorn
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Starting up application...")
-    create_tables()
+    # create_tables()
     print("Database tables created successfully!")
     yield
     print("Shutting down application...")
@@ -46,4 +47,4 @@ async def helath():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
